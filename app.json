@@ -1,30 +1,40 @@
 {
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "durtect",
+    "slug": "durtect",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#131313"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sinugbangisda.durtect"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#131313"
+      },
+      "package": "com.sinugbangisda.durtect"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "backgroundColor": "#131313"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "392e6960-0e69-4293-8dde-cad922875ec6"
+      }
     }
   }
 }
