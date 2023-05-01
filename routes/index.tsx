@@ -38,8 +38,7 @@ const Routes = () => {
                         component = { History }
                         options = {{
                             headerShown: false,
-                            gestureEnabled: true,
-                            animation: "slide_from_right",
+                            gestureEnabled: true
                         }}
                     />
                     <Stack.Screen
@@ -47,8 +46,7 @@ const Routes = () => {
                         component = { Diseases }
                         options = {{
                             headerShown: false,
-                            gestureEnabled: true,
-                            animation: "slide_from_right",
+                            gestureEnabled: true
                         }} 
                     />
                     <Stack.Screen
@@ -56,8 +54,7 @@ const Routes = () => {
                         component = { WhatsNew }
                         options = {{
                             headerShown: false,
-                            gestureEnabled: true,
-                            animation: "slide_from_right",
+                            gestureEnabled: true
                         }} 
                     />
                     <Stack.Screen
@@ -65,8 +62,7 @@ const Routes = () => {
                         component = { Loading }
                         options = {{
                             headerShown: false,
-                            gestureEnabled: false,
-                            animation: "slide_from_right",
+                            gestureEnabled: false
                         }} 
                     />
                     <Stack.Screen
@@ -74,8 +70,7 @@ const Routes = () => {
                         component = { Results }
                         options = {{
                             headerShown: false,
-                            gestureEnabled: false,
-                            animation: "slide_from_right"
+                            gestureEnabled: false
                         }} 
                     />
                 </Stack.Navigator>
