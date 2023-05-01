@@ -23,7 +23,6 @@ export const useCachedResources = () => {
             'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
           });
 
-          await new Promise(resolve => setTimeout(resolve, 1000));
         } catch (e) {
           console.warn(e);
         } finally {
