@@ -19,43 +19,41 @@ const DiseaseImage = ({ data }: DiseaseComponentsProps) => {
 
   return (
     <>
-    { !isImageLoaded && (
+      { !isImageLoaded && (
+        <Card twStyles = { `rounded-xl bg-[#969696] w-[${deviceWidth - 32}px] h-[${deviceHeight / 3}px] absolute` }/>
+      )}
       <Card 
-        twStyles = { `rounded-xl bg-[#969696] w-[${deviceWidth - 32}px] h-[${deviceHeight / 3}px] absolute` }
-      />
-    )}
-    <Card 
-      pressable
-      onPress = {() => setVisible(!visible)}
-    >
-      <Image
-        style = {[ tw `rounded-xl`, Styles.resultsImage ]}
-        source = {{
-          uri: data,
-          cache: "force-cache"
-        }}
-        onLoadStart = {() => {
-          setIsImageLoaded(false);
-        }}
-        onLoadEnd = {() => { 
-          setIsImageLoaded(true);
-        }}
-      />
-    </Card>
-    
-    <Modal
-      presentationStyle = "overFullScreen"
-      animationType = "slide"
-      transparent
-      visible = { visible }
-    >
-      <ImageViewer 
-        imageUrls = { image } 
-        onSwipeDown = {() => setVisible(!visible) }
-        enableSwipeDown
-      />
-    </Modal>
-  </>
+        pressable
+        onPress = {() => setVisible(!visible)}
+      >
+        <Image
+          style = {[ tw `rounded-xl`, Styles.resultsImage ]}
+          source = {{
+            uri: data,
+            cache: "force-cache"
+          }}
+          onLoadStart = {() => {
+            setIsImageLoaded(false);
+          }}
+          onLoadEnd = {() => { 
+            setIsImageLoaded(true);
+          }}
+        />
+      </Card>
+      
+      <Modal
+        presentationStyle = "overFullScreen"
+        animationType = "slide"
+        transparent
+        visible = { visible }
+      >
+        <ImageViewer 
+          imageUrls = { image } 
+          onSwipeDown = {() => setVisible(!visible) }
+          enableSwipeDown
+        />
+      </Modal>
+    </>
   )
 }
 

@@ -1,21 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { SimpleLineIcons } from '@expo/vector-icons'; 
 import Button from '../Button';
-import { GlobalContext } from '../../context/Global';
 import useDiseaseDetection from '../../hooks/useDiseaseDetection';
 import Card from '../Card';
 import Text from '../Text';
 import tw from '../../utils/tw';
-import { Alert, Image } from 'react-native';
-import { BASE_URL } from '../../constants';
 
-const NavMenu = () => {
-  const {  theme } = useContext(GlobalContext);
-  const { uploadImage, captureImage  } = useDiseaseDetection();
+const NavMenu = ({ id }: any) => {
+  const { uploadImage, captureImage  } = useDiseaseDetection(id);
   
   return (
-    <Card twStyles = {`flex-col items-center rounded-2xl p-10 ${theme === "dark" ? "darkSecondaryBG" : "lightSecondaryBG"}`}>
+    <Card twStyles = "flex-col items-center rounded-2xl p-10 darkSecondaryBG">
       <Card twStyles = "flex justify-center items-center">
         <SimpleLineIcons 
           name = "frame" 
@@ -30,16 +26,16 @@ const NavMenu = () => {
           /> 
         </Card>
       </Card>
-      <Text twStyles = {`text-justify my-2 ${theme === "dark" ? "darkText" : "lightText"}`}>
+      <Text twStyles = "text-justify my-2 darkText">
         Clean your camera lens and focus on the infected area for better results.
       </Text>
       <Button
-        twStyles = {`rounded-full p-4 flex justify-center items-center w-full my-1 ${theme === "dark" ? "bg-white" : "bg-black"}`}
+        twStyles = "rounded-full p-4 flex justify-center items-center w-full my-1 bg-white"
         onPress = {() => {
           captureImage()
         }}
       >
-        <Text twStyles = {`text-sm font-bold ${theme === "dark" ? "text-black" : "text-white"}`}>
+        <Text twStyles = "text-sm font-bold text-black">
           CAPTURE IMAGE
         </Text>
       </Button>
@@ -49,7 +45,7 @@ const NavMenu = () => {
           uploadImage();
         }}
       >
-        <Text twStyles = {`text-sm font-bold ${theme === "dark" ? "darkText" : "lightText"}`}>
+        <Text twStyles = "text-sm font-bold darkText">
           UPLOAD IMAGE
         </Text>
       </Button>

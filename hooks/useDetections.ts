@@ -1,16 +1,14 @@
-import { useState, useContext, useEffect, useCallback } from "react";
-import { GlobalContext } from "../context/Global";
+import { useState, useEffect, useCallback } from "react";
 import { useGetAllDetectionsQuery, useGetRecentDectectionsQuery } from "../redux/services/detectService";
 
-const useDetections = () => {
-    const { user_id } = useContext(GlobalContext);
-    const { data: recentDetections, refetch: recentLogsRefetch } = useGetRecentDectectionsQuery({ user_id: user_id});
-    const { data: allDetections, refetch: allLogsRefetch } = useGetAllDetectionsQuery({ user_id: user_id});
+const useDetections = ({ id }: any ) => {
+    const { data: recentDetections, refetch: recentLogsRefetch, isLoading: recentLogsIsLoading } = useGetRecentDectectionsQuery({ user_id: id });
+    const { data: allDetections, refetch: allLogsRefetch, isLoading: allLogsIsLoading } = useGetAllDetectionsQuery({ user_id: id });
     const [ recentLogsIDs, setRecentLogsIDs ] = useState<any>();
     const [ allLogsIDs, setAllLogsIDs ] = useState<any>();
     const [ recentLogs, setRecentLogs ] = useState<any>();
     const [ allLogs, setAllLogs ] = useState<any>();
-    
+
     const handleRecentDetections = useCallback(async () => {
         if (recentDetections) {
             const keys = Object.keys(recentDetections);
@@ -51,7 +49,16 @@ const useDetections = () => {
     }, [ handleAllDetections, handleRecentDetections ]);
 
 
-    return { recentLogs, allLogs, recentLogsIDs, allLogsIDs, recentLogsRefetch, allLogsRefetch };
+    return { 
+        recentLogs, 
+        allLogs, 
+        recentLogsIDs, 
+        allLogsIDs, 
+        recentLogsRefetch, 
+        allLogsRefetch,
+        allLogsIsLoading, 
+        recentLogsIsLoading 
+    };
 }
 
 export default useDetections;

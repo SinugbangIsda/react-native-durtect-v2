@@ -1,32 +1,28 @@
 import { useNavigation } from "@react-navigation/native";
-import { useContext } from "react";
-import { FlatList, Image } from "react-native";
-import { Styles } from "../../constants";
-import { GlobalContext } from "../../context/Global";
+import React from "react";
+import { FlatList } from "react-native";
 import { HistoryComponentsProps } from "../../interfaces";
 import { StackNavigationType } from "../../types";
 import { getDateFromNow } from "../../utils/getDateFromNow";
 import { sortResultsData } from "../../utils/sortResultsData";
 import tw from "../../utils/tw";
-import Card from "../Card";
 import Text from "../Text";
 import HistoryListItem from "./HistoryListItem";
 
 const HistoryList = ({ data }: HistoryComponentsProps) => {
     const navigation = useNavigation<StackNavigationType>();
-    const { theme } = useContext(GlobalContext);
 
     const noData = () => {
         return (
-            <Text twStyles = {`text-center mt-4 ${theme === "dark" ? "darkText" : "lightText"}`}>
+            <Text twStyles = "text-center mt-4 darkText">
                 No data found.
             </Text>
         )
-    }
+    };
 
     const removeDuplicates = (arr: string[]): string[] => {
         return arr.filter((item, index) => arr.indexOf(item) === index);
-    }
+    };
 
     return (
         <FlatList

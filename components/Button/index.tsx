@@ -1,8 +1,7 @@
 import { Pressable, TouchableHighlight } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import tw from '../../utils/tw';
 import { ButtonProps } from '../../interfaces';
-import useDarkMode from '../../hooks/useDarkMode';
 
 const Button = ({ twStyles, onPress, children, touchableOpacity }: ButtonProps ) => {
 

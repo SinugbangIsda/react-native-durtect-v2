@@ -1,3 +1,4 @@
+import { nanoid } from "@reduxjs/toolkit";
 import { StyleSheet, Platform, StatusBar, Dimensions } from "react-native";
 
 export const deviceHeight = Dimensions.get('window').height;
@@ -46,5 +47,5 @@ export const Styles = StyleSheet.create({
 });
 
 export const BASE_URL = {
-    api: `https://durtect-api.onrender.com`,
+    api: `http://192.168.68.120:5000`
 };

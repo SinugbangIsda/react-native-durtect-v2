@@ -1,12 +1,3 @@
-import { RnColorScheme } from "twrnc"
-
-export interface GlobalContextProps {
-    user_id: any;
-    error: string | null;
-    dispatch: any;
-    theme: RnColorScheme;
-}
-
 export interface DataResultsProps {
     id: any;
     name: any;

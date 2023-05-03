@@ -1,31 +1,40 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../../components/Layout';
 import HomeHeader from '../../components/Home/HomeHeader';
 import NavMenu from '../../components/Home/NavMenu';
 import RecentHistory from '../../components/Home/RecentHistory';
 import Discover from '../../components/Home/Discover';
 import { RefreshControl, ScrollView } from 'react-native';
-import { GlobalContext } from '../../context/Global';
 import useDetections from '../../hooks/useDetections';
+import { initializeUserID, selectCurrentUserID } from '../../redux/slices/authSlice';
+import { store } from '../../redux/store';
+import { useAppSelector } from '../../redux/hooks';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
-  const { theme } = useContext(GlobalContext);
-  const { recentLogs, recentLogsIDs, allLogs, allLogsIDs, recentLogsRefetch, allLogsRefetch } = useDetections();
+  const userID = useAppSelector(selectCurrentUserID);
+  const { 
+    recentLogs, 
+    recentLogsIDs, 
+    allLogs, 
+    allLogsIDs, 
+    recentLogsRefetch, 
+    allLogsRefetch,
+    allLogsIsLoading,
+    recentLogsIsLoading
+  } = useDetections({ userID });
   const [ refreshing, setRefreshing ] = useState<boolean>(false);
-  
   const refreshControlColors = {
-    color: theme === "dark" ? "white" : "black",
-    tintColor: theme === "dark" ? "white" : "black",
+    color: "white",
+    tintColor: "white",
   };
 
   useEffect(() => {
-    if (recentLogs && allLogs)  {
-      recentLogsRefetch();
-      allLogsRefetch();
-    }
-  }, [ recentLogs, allLogs, recentLogsRefetch, allLogsRefetch ]);
+    store.dispatch(initializeUserID());
+  }, [ store.dispatch(initializeUserID()), userID ]);
+
   return (
-    <Layout twStyles = {`flex-1 ${theme === "dark" ? "darkBG" : "lightBG"}`}>
+    <Layout twStyles = {`flex-1 darkBG`}>
       <HomeHeader />
       <ScrollView
         style = {[ { flex: 1 }]}
@@ -36,17 +45,19 @@ const Home = () => {
             refreshing = { refreshing }
             onRefresh = { () => { 
               setRefreshing(true);
-              setTimeout(() => {
+              if (allLogsIsLoading || recentLogsIsLoading) {
+                setRefreshing(false);
+              } else {
                 allLogsRefetch();
                 recentLogsRefetch();
                 setRefreshing(false);
-              }, 1000);
+              }
             }}
             { ...refreshControlColors }
           />
         }  
       >
-        <NavMenu />
+        <NavMenu id = { userID } />
         <RecentHistory 
           recentLogs = { recentLogs }
           recentLogsIDs = { recentLogsIDs }

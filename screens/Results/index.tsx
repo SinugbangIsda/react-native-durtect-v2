@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ResultsData from '../../components/Results/ResultsData';
 import { ScrollView } from 'react-native';
 import tw from '../../utils/tw';
@@ -6,15 +6,13 @@ import ResultsImage from '../../components/Results/ResultsImage';
 import Card from '../../components/Card';
 import Layout from '../../components/Layout';
 import ResultsHeader from '../../components/Results/ResultsHeader';
-import { GlobalContext } from '../../context/Global';
 import Text from '../../components/Text';
 
 const Results = ({ route }: any) => {
   const { data, id } = route.params;
-  const { theme } = useContext(GlobalContext);
 
   return (
-    <Layout twStyles = {`flex-1 ${theme === "dark" ? "darkBG" : "lightBG"}`}>
+    <Layout twStyles = "flex-1 darkBG">
       <ResultsHeader 
         data = { data }
         id = { id }
@@ -38,7 +36,7 @@ const Results = ({ route }: any) => {
                 />
               </>
             :
-              <Text twStyles = {`${theme === "dark" ? "darkText" : "lightText"} text-center`}>
+              <Text twStyles = "darkText text-center">
                 No detections.
               </Text>
             }

@@ -1,28 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { FlatList } from "react-native";
 import Text from '../Text';
 import Card from '../Card';
 import diseases from "../../assets/data/diseases.json";
-import { GlobalContext } from '../../context/Global';
 import DiscoverItem from './DiscoverItem';
 
 const Discover = () => {
-  const { theme } = useContext(GlobalContext);
-
   const noData = () => {
-      return (
-        <Text twStyles = {`${theme === "dark" ? "text-white" : "text-black"}`}>
-          No data avaiable.
-        </Text>
-      )
+    return (
+      <Text twStyles = "darkText">
+        No data avaiable.
+      </Text>
+    )
   }
 
   return (
     <Card twStyles = "mt-2">
-      <Text twStyles = {`text-xl font-bold ${theme === "dark" ? "darkText" : "lightText"}`}>
+      <Text twStyles = "text-xl font-bold darkText">
         Discover
       </Text>
-      <Card twStyles = {`mt-2 rounded-2xl p-4 ${theme === "dark" ? "darkSecondaryBG" : "lightSecondaryBG"}`}>
+      <Card twStyles = "mt-2 rounded-2xl p-4 darkSecondaryBG">
         <FlatList 
           data = { diseases }
           showsHorizontalScrollIndicator = { false }

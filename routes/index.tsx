@@ -7,16 +7,19 @@ import Loading from '../screens/Loading';
 import History from '../screens/History';
 import Diseases from '../screens/Diseases';
 import WhatsNew from '../screens/WhatsNew';
-import useDarkMode from '../hooks/useDarkMode';
-import useUserID from '../hooks/useUserID';
+import "react-native-reanimated";
+import React, { useEffect } from "react";
+import { store } from '../redux/store';
+import { initializeUserID } from '../redux/slices/authSlice';
 
 const Routes = () => {
     const Stack = createNativeStackNavigator<RootStackParamList>();
-    const { renderTheme } = useDarkMode();
-    const { getID } = useUserID();
-    getID();
-    renderTheme();
-    
+    const userID = store.getState().auth.userID;
+
+    useEffect(() => {
+        store.dispatch(initializeUserID());
+    }, []);
+
     return (
         <NavigationContainer>
             <Stack.Navigator

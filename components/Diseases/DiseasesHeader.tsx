@@ -1,6 +1,5 @@
 import Header from "../Header";
-import React, { useContext } from "react";
-import { GlobalContext } from "../../context/Global";
+import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationType } from "../../types";
 import Card from "../Card";
@@ -11,37 +10,30 @@ import { DiseaseComponentsProps } from "../../interfaces";
 
  
 const DiseaseHeader = ({ data }: DiseaseComponentsProps ) => {
-    const { dispatch, theme } = useContext(GlobalContext);
-    const navigation = useNavigation<StackNavigationType>();
+  const navigation = useNavigation<StackNavigationType>();
 
-    const handleContext = () => {
-        dispatch({
-            type: "RESET",
-        });
-    };
-    return (
-        <Header
-          left = {
-            <Card
-                pressable
-                onPress = {() => {
-                  handleContext();
-                  navigation.goBack();
-                }}
-            >
-                <Ionicons 
-                  name = "arrow-back-sharp" 
-                  style = {[ tw `text-2xl ${theme === "dark" ? "darkText" : "lightText"}`]} 
-                />
-            </Card>
-        }
-        center = {
-          <Text twStyles = {`text-xl font-bold ${theme === "dark" ? "darkText" : "lightText"}`}>
-            { data }
-          </Text>
-        }
-      />
-    )
+  return (
+    <Header
+      left = {
+        <Card
+          pressable
+          onPress = {() => {
+            navigation.goBack();
+          }}
+        >
+          <Ionicons 
+            name = "arrow-back-sharp" 
+            style = {[ tw `text-2xl darkText`]} 
+          />
+        </Card>
+    }
+    center = {
+      <Text twStyles = "text-xl font-bold darkText">
+        { data }
+      </Text>
+    }
+  />
+)
 }
 
 export default DiseaseHeader;

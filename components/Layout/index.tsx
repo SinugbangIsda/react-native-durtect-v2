@@ -1,17 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native';
 import { Styles } from '../../constants';
-import useDarkMode from '../../hooks/useDarkMode';
 import { LayoutProps } from '../../interfaces';
 import tw from '../../utils/tw';
 import Card from '../Card';
 
 const Layout = ({ children, twStyles, noSpacing }: LayoutProps ) => {
-  const { theme } = useDarkMode();
 
   return (
     <>
-      <StatusBar style = { theme  === "dark" ? "light" : "dark" } />
+      <StatusBar style = "light" />
       <SafeAreaView style = {[ Styles.AndroidSafeArea, tw `${twStyles}`]}>
         { noSpacing ?
           <Card twStyles = "flex-1">

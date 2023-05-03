@@ -19,9 +19,7 @@ const ResultsImage = ({ data }: ResultsComponentsProps) => {
   return (
     <>
       { !isImageLoaded && (
-        <Card 
-          twStyles = { `rounded-xl bg-[#969696] w-[${deviceWidth - 32}px] h-[${deviceHeight / 3}px] absolute` }
-        />
+        <Card twStyles = { `rounded-xl bg-[#969696] w-[${deviceWidth - 32}px] h-[${deviceHeight / 3}px] absolute` }/>
       )}
       <Card 
         pressable

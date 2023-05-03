@@ -2,15 +2,12 @@ import { ResultsComponentsProps } from '../../interfaces';
 import Card from '../Card';
 import Text from '../Text';
 import diseases from "../../assets/data/diseases.json";
-import { useContext } from 'react';
-import { GlobalContext } from '../../context/Global';
 import { ProgressBar } from "react-native-paper";
 import tw from '../../utils/tw';
 import TreatmentImage from '../Diseases/TreatmentImage';
 
 const ResultsData = ({ data }: ResultsComponentsProps) => {
     const { symptoms, treatment } = diseases[0];
-    const { theme } = useContext(GlobalContext);
     
     const getDetectedSymptoms = () => {
         const names: string[] = [];
@@ -60,20 +57,20 @@ const ResultsData = ({ data }: ResultsComponentsProps) => {
   return (
     <Card twStyles = "my-2">
         <Card twStyles = "my-2">
-            <Text twStyles = {`text-xl font-bold ${theme === "dark" ? "darkText" : "lightText"}`}>
+            <Text twStyles = "text-xl font-bold darkText">
                 Detections
             </Text>
-            <Card twStyles = {`mt-2 rounded-2xl p-4 ${theme === "dark" ? "darkSecondaryBG": "lightSecondaryBG"}`}>
+            <Card twStyles = "mt-2 rounded-2xl p-4 darkSecondaryBG">
                 { data.map((value: any, index: any) => (
                     <Card 
                         twStyles = "my-2"
                         key = { index }
                     >
                         <Card twStyles = "flex flex-row justify-between items-center">
-                            <Text twStyles = {`text-lg ${theme === "dark" ? "darkText" : "lightText"}`}>
+                            <Text twStyles = "text-lg darkText">
                                 { value.name !== "NoDisease" ? value.name.slice(2) : "NoDisease"}
                             </Text>
-                            <Text twStyles = {`text-lg ${theme === "dark" ? "darkText" : "lightText"}`}>
+                            <Text twStyles = "text-lg darkText">
                                 { Math.min(value.confidence * 100).toFixed(2) }%
                             </Text>
                         </Card>
@@ -86,22 +83,20 @@ const ResultsData = ({ data }: ResultsComponentsProps) => {
             </Card>
         </Card>
         <Card twStyles = "my-2">
-            <Text twStyles = {`text-xl font-bold ${theme === "dark" ? "darkText" : "lightText"}`}>
+            <Text twStyles = "text-xl font-bold darkText">
                 Average Confidence
             </Text>
-            <Card twStyles = {`mt-2 rounded-2xl p-4 ${theme === "dark" ? "darkSecondaryBG": "lightSecondaryBG"}`}>
+            <Card twStyles = "mt-2 rounded-2xl p-4 darkSecondaryBG">
                 { averageConfidence.map((value: any, index: any ) => (
                     <Card
                         twStyles = "my-2" 
                         key = { index }
                     >
                             <Card twStyles = "flex flex-row justify-between items-center">
-                                <Text 
-                                    twStyles = {`text-lg ${theme === "dark" ? "darkText" : "lightText"}`}
-                                >
+                                <Text twStyles = "text-lg darkText">
                                     { detectedSymptoms[index] !== "NoDisease" ? detectedSymptoms[index].slice(2) : "NoDisease"}
                                 </Text>
-                                <Text twStyles = {`text-lg ${theme === "dark" ? "darkText" : "lightText"}`}>
+                                <Text twStyles = "text-lg darkText">
                                     { Math.min(value * 100).toFixed(2) }%
                                 </Text>
                             </Card>
@@ -119,18 +114,18 @@ const ResultsData = ({ data }: ResultsComponentsProps) => {
                { detectedSymptoms[0] !== "NoDisease" ?
                     <Card>
                         <Card twStyles = "my-2">
-                            <Text twStyles={`text-xl font-bold ${theme === "dark" ? "darkText" : "lightText"}`}>
+                            <Text twStyles = "text-xl font-bold darkText">
                                 Related Info
                             </Text> 
-                            <Card twStyles = {`my-2 rounded-2xl p-4 ${theme === "dark" ? "darkSecondaryBG": "lightSecondaryBG"}`}>
+                            <Card twStyles = "my-2 rounded-2xl p-4 darkSecondaryBG">
                                 { detectedSymptoms.map((value: any, index: any ) => (
                                     <Card key = { index }>
                                         { detectedSymptoms[index] !== "NoDisease" ?
                                             <Card>
-                                                <Text twStyles = {`text-lg font-bold ${theme === "dark" ? "darkText" : "lightText"}`}>
+                                                <Text twStyles = "text-lg font-bold darkText">
                                                     { index + 1}. { detectedSymptoms[index].slice(2) === "Blackbark" ? "Black bark (Discoloration)" : detectedSymptoms[index] }
                                                 </Text>
-                                                <Text twStyles = {`text-justify ${theme === "dark" ? "darkText" : "lightText"}`}>
+                                                <Text twStyles = "text-justify darkText">
                                                     - { detectedSymptomsDescriptions[index] }
                                                 </Text>
                                             </Card>
@@ -142,20 +137,20 @@ const ResultsData = ({ data }: ResultsComponentsProps) => {
                             </Card>
                         </Card>
                         <Card twStyles = "my-2">
-                            <Text twStyles = {`text-xl font-bold ${theme === "dark" ? "darkText" : "lightText"}`}>
+                            <Text twStyles = "text-xl font-bold darkText">
                                 Possible Treatment
                             </Text>
                             <TreatmentImage 
                                 data = { treatment[0].image_uri }
                             />
-                            <Card twStyles = {`my-2 rounded-2xl p-4 ${theme === "dark" ? "darkSecondaryBG": "lightSecondaryBG"}`}>
+                            <Card twStyles = "my-2 rounded-2xl p-4 darkSecondaryBG">
                                 { treatment.map((value:any, index:any) => (
                                     <Card key = { index }>
                                         <Card>
-                                            <Text twStyles = {`text-lg font-bold ${theme === "dark" ? "darkText" : "lightText"}`}>
+                                            <Text twStyles = "text-lg font-bold darkText">
                                                 { treatment[index].name }
                                             </Text>
-                                            <Text twStyles = {`text-justify ${theme === "dark" ? "darkText" : "lightText"}`}>
+                                            <Text twStyles = "text-justify darkText">
                                                 { treatment[index].description }
                                             </Text>
                                         </Card>
@@ -167,12 +162,11 @@ const ResultsData = ({ data }: ResultsComponentsProps) => {
                     
                 : 
                     <Card twStyles = "my-2">
-                        <Text twStyles = {`text-center text-3xl font-bold ${theme === "dark" ? "darkText" : "lightText"}`}>
+                        <Text twStyles = "text-center text-3xl font-bold darkText">
                             No disease detected :D
                         </Text>
                     </Card>
                 }
-
             </>
         </Card>
     </Card>
