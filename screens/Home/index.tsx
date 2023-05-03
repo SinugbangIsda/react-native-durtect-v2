@@ -9,7 +9,6 @@ import useDetections from '../../hooks/useDetections';
 import { initializeUserID, selectCurrentUserID } from '../../redux/slices/authSlice';
 import { store } from '../../redux/store';
 import { useAppSelector } from '../../redux/hooks';
-import { useSelector } from 'react-redux';
 
 const Home = () => {
   const userID = useAppSelector(selectCurrentUserID);
