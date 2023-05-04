@@ -6,8 +6,9 @@ import { StackNavigationType } from "../types";
 import moment from "moment";
 import { sortResultsData } from "../utils/sortResultsData";
 import { useDetectImageMutation } from "../redux/services/detectService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const useDiseaseDetection = ({ id }: any) => {
+const useDiseaseDetection = () => {
     const navigation = useNavigation<StackNavigationType>();
     const [ detectImage ] = useDetectImageMutation();
 
@@ -52,9 +53,18 @@ const useDiseaseDetection = ({ id }: any) => {
 
             formData.append("timestamp", moment().unix().toString());
             navigation.navigate("Loading");
-            formData.append("user_id", id);           
+
+            const getUserID = async () => {
+                const data = await AsyncStorage.getItem("userID");
+                return data;
+            };
+
+            const userID = await getUserID();
+
+            formData.append("user_id", userID!);
+
             try {
-                const data = await detectImage({ user_id: id, formData: formData}).unwrap();
+                const data = await detectImage({ user_id: userID, formData: formData }).unwrap();
                 const dataID = Object.keys(data);
                 const results = sortResultsData(Object.values(data));
                 navigation.replace("Results", { 

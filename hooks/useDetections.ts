@@ -2,8 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 import { useGetAllDetectionsQuery, useGetRecentDectectionsQuery } from "../redux/services/detectService";
 
 const useDetections = ({ id }: any ) => {
-    const { data: recentDetections, refetch: recentLogsRefetch, isLoading: recentLogsIsLoading } = useGetRecentDectectionsQuery({ user_id: id });
-    const { data: allDetections, refetch: allLogsRefetch, isLoading: allLogsIsLoading } = useGetAllDetectionsQuery({ user_id: id });
+    const { data: recentDetections, refetch: recentLogsRefetch, isLoading: recentLogsIsLoading } = useGetRecentDectectionsQuery({ user_id: id }, { refetchOnMountOrArgChange: true, skip: !id });
+    const { data: allDetections, refetch: allLogsRefetch, isLoading: allLogsIsLoading } = useGetAllDetectionsQuery({ user_id: id }, { refetchOnMountOrArgChange: true, skip: !id });
     const [ recentLogsIDs, setRecentLogsIDs ] = useState<any>();
     const [ allLogsIDs, setAllLogsIDs ] = useState<any>();
     const [ recentLogs, setRecentLogs ] = useState<any>();

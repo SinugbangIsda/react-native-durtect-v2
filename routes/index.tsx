@@ -8,18 +8,24 @@ import History from '../screens/History';
 import Diseases from '../screens/Diseases';
 import WhatsNew from '../screens/WhatsNew';
 import "react-native-reanimated";
-import React, { useEffect } from "react";
-import { store } from '../redux/store';
-import { initializeUserID } from '../redux/slices/authSlice';
+import React, { useCallback, useEffect } from "react";
+import { useAppDispatch } from '../redux/hooks';
+import { setUserID } from '../redux/slices/authSlice';
+import { getUserID } from '../utils/getUserID';
 
 const Routes = () => {
     const Stack = createNativeStackNavigator<RootStackParamList>();
-    const userID = store.getState().auth.userID;
+    const dispatch = useAppDispatch();
+
+    const setUserIDState = useCallback(async () => {
+        const userID = await getUserID();
+        dispatch(setUserID(userID));
+    }, [ dispatch ]);
 
     useEffect(() => {
-        store.dispatch(initializeUserID());
-    }, []);
-
+        setUserIDState();
+    }, [ setUserIDState ]);
+    
     return (
         <NavigationContainer>
             <Stack.Navigator

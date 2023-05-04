@@ -9,13 +9,16 @@ import tw from '../../utils/tw';
 import { ResultsComponentsProps } from '../../interfaces';
 import { Alert } from 'react-native';
 import { useDeleteDetectionByIdMutation } from '../../redux/services/detectService';
-import useUserID from '../../hooks/useUserID';
+import { getUserID } from '../../utils/getUserID';
 
 const ResultsHeader = ({ data, id }: ResultsComponentsProps) => {
+    const fetchUserID = async () => {
+      return getUserID();
+    };
+
     const navigation = useNavigation<StackNavigationType>();
     const [ showConfirm, setShowConfirm ] = useState<boolean>(false);
     const [ deleteAllEntries ] = useDeleteDetectionByIdMutation();
-    const { userID } = useUserID();
 
     const showConfirmDialog = () => {
         return Alert.alert(
@@ -27,6 +30,7 @@ const ResultsHeader = ({ data, id }: ResultsComponentsProps) => {
               onPress: async () => {
                 setShowConfirm(!showConfirm);
                 try {
+                  const userID = await fetchUserID();
                   await deleteAllEntries({ user_id: userID, entry_id: id }).unwrap();
                   navigation.goBack();
                 } catch (err) {

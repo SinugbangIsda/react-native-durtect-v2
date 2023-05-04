@@ -6,8 +6,7 @@ import RecentHistory from '../../components/Home/RecentHistory';
 import Discover from '../../components/Home/Discover';
 import { RefreshControl, ScrollView } from 'react-native';
 import useDetections from '../../hooks/useDetections';
-import { initializeUserID, selectCurrentUserID } from '../../redux/slices/authSlice';
-import { store } from '../../redux/store';
+import { selectCurrentUserID } from '../../redux/slices/authSlice';
 import { useAppSelector } from '../../redux/hooks';
 
 const Home = () => {
@@ -21,16 +20,12 @@ const Home = () => {
     allLogsRefetch,
     allLogsIsLoading,
     recentLogsIsLoading
-  } = useDetections({ userID });
+  } = useDetections({ id: userID });
   const [ refreshing, setRefreshing ] = useState<boolean>(false);
   const refreshControlColors = {
     color: "white",
     tintColor: "white",
   };
-
-  useEffect(() => {
-    store.dispatch(initializeUserID());
-  }, [ store.dispatch(initializeUserID()), userID ]);
 
   return (
     <Layout twStyles = {`flex-1 darkBG`}>
@@ -56,15 +51,12 @@ const Home = () => {
           />
         }  
       >
-        <NavMenu id = { userID } />
+        <NavMenu />
         <RecentHistory 
           recentLogs = { recentLogs }
           recentLogsIDs = { recentLogsIDs }
-          recentLogsRefetch = { recentLogsRefetch }
           allLogs = { allLogs }
           allLogsIDs = { allLogsIDs }
-          allLogsRefetch = { allLogsRefetch }
-
         />
         <Discover />
       </ScrollView>

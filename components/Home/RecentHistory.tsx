@@ -1,5 +1,5 @@
 import { FlatList } from 'react-native';
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import Card from '../Card';
 import Text from "../Text";
 import { useNavigation } from '@react-navigation/native';
@@ -8,15 +8,8 @@ import { deviceWidth } from '../../constants';
 import { sortResultsData } from '../../utils/sortResultsData';
 import RecentHistoryItem from './RecentHistoryItem';
 
-const RecentHistory = ({ recentLogs, recentLogsIDs, recentLogsRefetch, allLogs, allLogsIDs, allLogsRefetch }: any) => {
+const RecentHistory = ({ recentLogs, recentLogsIDs, allLogs, allLogsIDs }: any) => {
   const navigation = useNavigation<StackNavigationType>();
-
-  useEffect(() => {
-    if (recentLogs && allLogs)  {
-      recentLogsRefetch();
-      allLogsRefetch();
-    }
-  }, [ recentLogs, allLogs, recentLogsRefetch, allLogsRefetch ]);
 
   const Skeleton = () => {
     return (

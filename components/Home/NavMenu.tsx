@@ -7,8 +7,8 @@ import Card from '../Card';
 import Text from '../Text';
 import tw from '../../utils/tw';
 
-const NavMenu = ({ id }: any) => {
-  const { uploadImage, captureImage  } = useDiseaseDetection(id);
+const NavMenu = () => {
+  const { uploadImage, captureImage  } = useDiseaseDetection();
   
   return (
     <Card twStyles = "flex-col items-center rounded-2xl p-10 darkSecondaryBG">

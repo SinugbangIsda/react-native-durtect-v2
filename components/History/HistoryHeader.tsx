@@ -9,13 +9,15 @@ import { HistoryComponentsProps } from "../../interfaces";
 import { Alert } from "react-native";
 import tw from "../../utils/tw";
 import { useDeleteAllDetectionsMutation } from "../../redux/services/detectService";
-import useUserID from "../../hooks/useUserID";
+import { getUserID } from "../../utils/getUserID";
 
 const HistoryHeader = ({ data }: HistoryComponentsProps) => {
+    const fetchUserID = async () => {
+        return getUserID();
+    };
     const navigation = useNavigation<StackNavigationType>();
     const [ showConfirm, setShowConfirm ] = useState<boolean>(false);
     const [ deleteAllEntries ] = useDeleteAllDetectionsMutation();
-    const { userID } = useUserID(); 
 
     const showConfirmDialog = () => {   
         return Alert.alert(
@@ -27,6 +29,7 @@ const HistoryHeader = ({ data }: HistoryComponentsProps) => {
               onPress: async () => {
                 setShowConfirm(!showConfirm);
                 try {
+                    const userID = await fetchUserID();
                     await deleteAllEntries({ user_id: userID }).unwrap();
                     navigation.goBack();
                 } catch (err) {
